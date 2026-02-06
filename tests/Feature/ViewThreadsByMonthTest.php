@@ -29,7 +29,7 @@ class ViewThreadsByMonthTest extends TestCase
          */
         $currently = Carbon::parse('2022-11-01');
 
-        $response = $this->get(route('threads.month'));
+        $response = $this->get(route('threads.month', ['month' =>  "2022-11"]));
 
         $response->assertSee([
             ...[30, 31],
