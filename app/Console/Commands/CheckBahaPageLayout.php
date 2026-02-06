@@ -136,7 +136,7 @@ class CheckBahaPageLayout extends Command
     {
         $page = $this->scraper->getPage('https://forum.gamer.com.tw/B.php?bsn=60076&qt=1&q=半夜歌串一人一首');
 
-        $items = $page->filter('.b-list-item');
+        $items = $page->filter('.b-list__row');
 
         $this->setCountableSearchReport('Search Title Items', $items->count());
 

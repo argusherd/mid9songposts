@@ -135,7 +135,7 @@ trait WorksWithBahaPages
     protected function mockClientWithSearchTitleClassTagChanged()
     {
         $html = File::get($this->pagesFilePath . '/search_title_p1.html');
-        $classTagChanged = str_replace('b-list-item', 'changed_class', $html);
+        $classTagChanged = str_replace('b-list__main', 'changed_class', $html);
 
         $this->mockClient([new Response(200, [], $classTagChanged)]);
     }

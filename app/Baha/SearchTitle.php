@@ -120,7 +120,9 @@ class SearchTitle extends Page
      */
     protected function getResultList()
     {
-        $lists = $this->html->filter('.b-list-item');
+        $lists = $this->html->filter('.b-list__row')->reduce(function (Crawler $node) {
+            return $node->filter('.b-list__main')->count() > 0;
+        });
 
         if (
             !$lists->count() &&
