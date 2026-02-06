@@ -18,6 +18,10 @@ jobs:
     env:
       exec: sudo docker compose exec --user=laradock -w /var/www/mid9songposts workspace
     steps:
+    - name: Setup Cloudflare WARP
+      uses: fscarmen/warp-on-actions@v1.4
+      with:
+        stack: dual
     - name: ssh commands
       uses: appleboy/ssh-action@master
       with:
