@@ -7,6 +7,8 @@ use App\Jobs\ScrapePostsFromSearchTitle;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
+use function Symfony\Component\DependencyInjection\Loader\Configurator\env;
+
 class Kernel extends ConsoleKernel
 {
     /**
@@ -26,17 +28,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(fn () => (new RefreshBahaToken)->handle())
-            ->dailyAt('22:00')
-            ->when(fn () => env('REFRESH_BAHA_TOKEN', false));
+        $schedule->call(fn() => (new RefreshBahaToken)->handle())
+            ->dailyAt(env('REFRESH_BAHA_TOKEN_AT', '22:30'))
+            ->when(fn() => env('REFRESH_BAHA_TOKEN', false));
 
-        $schedule->call(fn () => (new ScrapePostsFromSearchTitle)->handle())
-            ->dailyAt('23:00')
-            ->when(fn () => (bool) cache('BAHARUNE'));
+        $schedule->call(fn() => (new ScrapePostsFromSearchTitle)->handle())
+            ->dailyAt(env('SCRAPE_POSTS_AT', '23:00'))
+            ->when(fn() => (bool) cache('BAHARUNE'));
 
         $schedule->command('queue:work', ['--stop-when-empty', '--rest=3', '--timeout=120'])
-            ->dailyAt('23:30')
-            ->when(fn () => (bool) cache('BAHARUNE'));
+            ->dailyAt(env('QUEUE_WORK_AT', '23:45'))
+            ->when(fn() => (bool) cache('BAHARUNE'));
     }
 
     /**
