@@ -77,13 +77,13 @@ class PostSection
         /** @var \Symfony\Component\DomCrawler\Crawler|\Symfony\Component\Panther\DomCrawler\Crawler */
         $crawler = $this->html->filter('.c-article__content');
 
-        if ($crawler instanceof Crawler) {
-            $content = $crawler->html();
-        } elseif ($crawler instanceof PantherCrawler) {
+        if ($crawler instanceof PantherCrawler) {
             /** @var \Facebook\WebDriver\Remote\RemoteWebElement */
             $webElement = $crawler->getElement(0);
 
             $content = $webElement->getDomProperty('innerHTML');
+        } else {
+            $content = $crawler->html();
         }
 
         return urldecode($content);

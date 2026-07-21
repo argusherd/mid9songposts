@@ -29,15 +29,15 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(fn() => (new RefreshBahaToken)->handle())
-            ->dailyAt(env('REFRESH_BAHA_TOKEN_AT', '22:30'))
-            ->when(fn() => env('REFRESH_BAHA_TOKEN', false));
+            ->dailyAt(config('app.refresh_baha_token_at'))
+            ->when(fn() => config('app.refresh_baha_token'));
 
         $schedule->call(fn() => (new ScrapePostsFromSearchTitle)->handle())
-            ->dailyAt(env('SCRAPE_POSTS_AT', '23:00'))
+            ->dailyAt(config('app.scrape_posts_at'))
             ->when(fn() => (bool) cache('BAHARUNE'));
 
         $schedule->command('queue:work', ['--stop-when-empty', '--rest=3', '--timeout=120'])
-            ->dailyAt(env('QUEUE_WORK_AT', '23:45'))
+            ->dailyAt(config('app.queue_work_at'))
             ->when(fn() => (bool) cache('BAHARUNE'));
     }
 

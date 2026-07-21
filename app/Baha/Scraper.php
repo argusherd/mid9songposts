@@ -11,8 +11,7 @@ use Symfony\Component\Panther\DomCrawler\Crawler as PantherCrawler;
 
 class Scraper
 {
-    /** @property \GuzzleHttp\Client|\Symfony\Component\Panther\Client */
-    protected $cachedClient;
+    protected Client|PantherClient $cachedClient;
 
     protected bool $pantherInitiated = false;
 
@@ -28,15 +27,19 @@ class Scraper
 
     public function getPage(string $url): Crawler|PantherCrawler
     {
-        if ($this->cachedClient instanceof Client) {
-            return new Crawler($this->requestByGuzzle($url));
-        } elseif ($this->cachedClient instanceof PantherClient) {
+        if ($this->cachedClient instanceof PantherClient) {
             return $this->requestByPanther($url);
         }
+
+        return new Crawler($this->requestByGuzzle($url));
     }
 
     public function requestByGuzzle(string $url): string
     {
+        if ($this->cachedClient instanceof Client == false) {
+            $this->cachedClient = new Client();
+        }
+
         $jar = CookieJar::fromArray(['BAHARUNE' => cache('BAHARUNE')], '.gamer.com.tw');
 
         $response = $this->cachedClient->request('GET', $url, [
@@ -49,9 +52,13 @@ class Scraper
 
     public function requestByPanther(string $url): PantherCrawler
     {
+        if ($this->cachedClient instanceof PantherClient == false) {
+            $this->cachedClient = PantherClient::createFirefoxClient();
+            $this->pantherInitiated = false;
+        }
+
         $this->initiatePantherClient();
 
-        /** @var \Symfony\Component\Panther\DomCrawler\Crawler */
         return $this->cachedClient->request('GET', $url);
     }
 

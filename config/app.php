@@ -230,4 +230,8 @@ return [
     ],
 
     'scrape_by' => env('SCRAPE_BY', 'guzzle'),
+    'queue_work_at' => env('QUEUE_WORK_AT', '23:45'),
+    'refresh_baha_token' => env('REFRESH_BAHA_TOKEN', false),
+    'refresh_baha_token_at' => env('REFRESH_BAHA_TOKEN_AT', '22:30'),
+    'scrape_posts_at' => env('SCRAPE_POSTS_AT', '23:00'),
 ];

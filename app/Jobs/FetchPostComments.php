@@ -39,9 +39,9 @@ class FetchPostComments implements ShouldQueue
 
         $scraper = new Scraper();
 
-        $response = $scraper->requestByGuzzle("{$url}{$this->post->no}");
+        $crawler = $scraper->getPage("{$url}{$this->post->no}");
 
-        $data = json_decode($response, true);
+        $data = json_decode($crawler->text(), true);
 
         if (!isset($data['next_snC'])) {
             $this->fail();
