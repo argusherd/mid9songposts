@@ -11,23 +11,22 @@
         "php": "^8.0",
         "dbrekelmans/bdi": "^1.0",
         "ezyang/htmlpurifier": "^4.16",
-        "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^9.0",
-        "laravel/tinker": "^2.5",
-        "league/uri": "^6.4",
-        "league/uri-components": "^2.2",
-        "symfony/dom-crawler": "^5.1",
+        "guzzlehttp/guzzle": "^7.0",
+        "laravel/framework": "^10.0",
+        "laravel/tinker": "^2.0",
+        "league/uri": "^6.0",
+        "league/uri-components": "^2.0",
+        "symfony/dom-crawler": "^6.0",
         "symfony/panther": "^2.0"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.7",
-        "brianium/paratest": "^6.6",
+        "barryvdh/laravel-debugbar": "^3.0",
+        "brianium/paratest": "^7.1",
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.4.2",
-        "nunomaduro/collision": "^6.1",
-        "phpunit/phpunit": "^9.3.3",
-        "spatie/laravel-ignition": "^1.0"
+        "nunomaduro/collision": "^7.0",
+        "phpunit/phpunit": "^10.0",
+        "spatie/laravel-ignition": "^2.0"
     },
     "config": {
         "optimize-autoloader": true,
@@ -51,7 +50,7 @@
             "Tests\\": "tests/"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
         "post-autoload-dump": [
