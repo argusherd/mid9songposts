@@ -56,7 +56,13 @@ class RefreshBahaToken implements ShouldQueue
 
     protected function initiateBaha()
     {
-        $this->client = Client::createFirefoxClient();
+        $exe = "drivers/geckodriver";
+
+        if (DIRECTORY_SEPARATOR === '\\') {
+            $exe .= ".exe";
+        }
+
+        $this->client = Client::createFirefoxClient(base_path($exe));
 
         $this->client->request('GET', 'https://forum.gamer.com.tw/B.php?bsn=60076');
 

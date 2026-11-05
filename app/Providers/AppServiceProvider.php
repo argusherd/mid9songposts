@@ -24,7 +24,13 @@ class AppServiceProvider extends ServiceProvider
             if (config('app.scrape_by') == 'guzzle') {
                 return new Client();
             } elseif (config('app.scrape_by') == 'panther') {
-                return PantherClient::createFirefoxClient();
+                $exe = "drivers/geckodriver";
+
+                if (DIRECTORY_SEPARATOR === '\\') {
+                    $exe .= ".exe";
+                }
+
+                return PantherClient::createFirefoxClient(base_path($exe));
             }
         });
 

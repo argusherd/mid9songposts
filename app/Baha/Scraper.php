@@ -53,7 +53,13 @@ class Scraper
     public function requestByPanther(string $url): PantherCrawler
     {
         if ($this->cachedClient instanceof PantherClient == false) {
-            $this->cachedClient = PantherClient::createFirefoxClient();
+            $exe = "drivers/geckodriver";
+
+            if (DIRECTORY_SEPARATOR === '\\') {
+                $exe .= ".exe";
+            }
+
+            $this->cachedClient = PantherClient::createFirefoxClient(base_path($exe));
             $this->pantherInitiated = false;
         }
 
